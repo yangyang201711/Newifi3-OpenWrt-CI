@@ -10,14 +10,14 @@
 # <https://github.com/LemoFire/autoOpenWrt>
 #
 
-name: NEWIFI-D2
+name: myopenwrt
 
 on:
   push:
     branches: 
       - master
-  schedule:
-    - cron: 0 */12 * * *
+  # schedule:
+  #   - cron: 0 */12 * * *
   watch:
     types: started
 
@@ -44,10 +44,10 @@ jobs:
       - name: Install addons
         run: |
           echo "src-git helloworld https://github.com/fw876/helloworld" >> ./feeds.conf.default 
-          cd package
-          mkdir openwrt-packages
-          cd openwrt-packages
-          git clone https://github.com/LemoFire/luci-app-aliddns.git
+          # cd package
+          # mkdir openwrt-packages
+          # cd openwrt-packages
+          # git clone https://github.com/LemoFire/luci-app-aliddns.git
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -59,9 +59,9 @@ jobs:
           touch ./.config
           cat >> .config <<EOF
           # Device type
-          CONFIG_TARGET_ramips=y
-          CONFIG_TARGET_ramips_mt7621=y
-          CONFIG_TARGET_ramips_mt7621_DEVICE_d-team_newifi-d2=y
+          CONFIG_TARGET_x86=y
+          CONFIG_TARGET_x86_64=y
+          CONFIG_TARGET_x86_64_Generic=y
 
           # Gzip
           CONFIG_TARGET_IMAGES_GZIP=y
@@ -71,11 +71,11 @@ jobs:
           CONFIG_PACKAGE_ipv6helper=y
 
           # USB support
-          ONFIG_PACKAGE_kmod-usb-core=y
-          CONFIG_PACKAGE_kmod-usb3=y
-          CONFIG_PACKAGE_kmod-usb-storage=y
-          CONFIG_PACKAGE_kmod-usb-storage-extras=y
-          CONFIG_PACKAGE_automount=y
+          # ONFIG_PACKAGE_kmod-usb-core=y
+          # CONFIG_PACKAGE_kmod-usb3=y
+          # CONFIG_PACKAGE_kmod-usb-storage=y
+          # CONFIG_PACKAGE_kmod-usb-storage-extras=y
+          # CONFIG_PACKAGE_automount=y
           
           # Filesystem
           CONFIG_PACKAGE_kmod-fs-exfat=y
@@ -85,9 +85,9 @@ jobs:
           # APP
           # CONFIG_PACKAGE_luci-app-aliddns=y
           # CONFIG_PACKAGE_luci-app-aria2=y
-          CONFIG_PACKAGE_luci-app-frpc=y
-          CONFIG_PACKAGE_luci-app-frps=y
-          CONFIG_PACKAGE_luci-app-hd-idle=y
+          # CONFIG_PACKAGE_luci-app-frpc=y
+          # CONFIG_PACKAGE_luci-app-frps=y
+          # CONFIG_PACKAGE_luci-app-hd-idle=y
           # CONFIG_PACKAGE_luci-app-mwan3=y
           # CONFIG_PACKAGE_luci-app-mwan3helper=y
           # CONFIG_PACKAGE_luci-app-openvpn=y
@@ -104,16 +104,16 @@ jobs:
           # CONFIG_PACKAGE_luci-app-syncdial=y
           CONFIG_PACKAGE_luci-app-ttyd=y
           # CONFIG_PACKAGE_luci-app-usb-printer=y
-          CONFIG_PACKAGE_luci-app-xlnetacc=y
+          # CONFIG_PACKAGE_luci-app-xlnetacc=y
 
           # Open source WIFI driver
           # CONFIG_PACKAGE_kmod-mt7603=y
           # CONFIG_PACKAGE_kmod-mt7603e=n
           # CONFIG_PACKAGE_kmod-mt76x2=y
           # CONFIG_PACKAGE_kmod-mt76x2e=n
-          CONFIG_PACKAGE_hostapd-common=y
-          CONFIG_PACKAGE_wpad-openssl=y
-          CONFIG_PACKAGE_luci-app-mtwifi=n
+          # CONFIG_PACKAGE_hostapd-common=y
+          # CONFIG_PACKAGE_wpad-openssl=y
+          # CONFIG_PACKAGE_luci-app-mtwifi=n
           
           EOF
           
